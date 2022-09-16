@@ -199,12 +199,15 @@ class single_bit_flip_func(core.FaultInjection):
         temp = "0" * (total_bits - len(bits))
         bits = temp + bits
         if len(bits) != total_bits:
+            print(bits)
+            print(len(bits), total_bits)
             raise AssertionError
         logging.info(f"Sign extend bits {bits}")
 
         # flip a bit
         # use MSB -> LSB indexing
         if bit_pos >= total_bits:
+            print(bit_pos, total_bits)
             raise AssertionError
 
         bits_new = list(bits)
@@ -222,6 +225,7 @@ class single_bit_flip_func(core.FaultInjection):
 
         # convert to quantum
         if not bits_str_new.isdigit():
+            print(bits_str_new)
             raise AssertionError
         new_quantum = int(bits_str_new, 2)
         out = self._twos_comp(new_quantum, total_bits)
