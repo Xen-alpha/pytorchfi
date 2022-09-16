@@ -117,7 +117,7 @@ class FaultInjection:
                             try:
                                 weights_shape.append(layer.weight.shape)
                             except:
-                                weights_shape.append(None)
+                                weights_shape.append((None))
             # unpack node
             else:
                 subhandles, subbase, subweight = self._traverse_model_set_hooks(
