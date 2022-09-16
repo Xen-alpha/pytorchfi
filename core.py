@@ -104,6 +104,14 @@ class FaultInjection:
             if list(layer.children()) == []:
                 if "all" in layer_types:
                     handles.append(layer.register_forward_hook(self._save_output_size))
+
+                    output_shape.append(layer)
+
+                    try:
+                        weights_shape.append(layer.weight.shape)
+                    except:
+                        weights_shape.append((0, 0, 0, 0))
+                        
                 else:
                     for i in layer_types:
                         if isinstance(layer, i):
