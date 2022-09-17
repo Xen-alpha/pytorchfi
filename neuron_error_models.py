@@ -200,9 +200,7 @@ class single_bit_flip_func(core.FaultInjection):
         temp = "0" * (total_bits - len(bits))
         bits = temp + bits
         if len(bits) != total_bits:
-            print(bits)
-            print(len(bits), total_bits)
-            raise AssertionError
+            raise AssertionError(f'\nOriginal Value: {orig_value}\nMax value: {max_value}\nQuantum: {quantum}\nTwos Couple: {twos_comple}\nBits: {before_sign_extention}\nSign extend bits: {bits}')
         logging.info(f"Sign extend bits {bits}")
 
         # flip a bit
@@ -244,7 +242,7 @@ class single_bit_flip_func(core.FaultInjection):
         corrupt_conv_set = self.corrupt_layer
         #range_max = self.get_conv_max(self.current_layer)
         range_max = torch.max(output).item()
-        
+
         logging.info(f"Current layer: {self.current_layer}")
         logging.info(f"Range_max: {range_max}")
 
