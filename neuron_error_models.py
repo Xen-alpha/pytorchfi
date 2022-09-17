@@ -188,12 +188,12 @@ class single_bit_flip_func(core.FaultInjection):
 
         quantum = int((orig_value / max_value) * ((2.0 ** (total_bits - 1))))
 
-        if quantum >= 2.0 ** (total_bits - 1):
+        if quantum >= 2 ** (total_bits - 1):
             logging.info(f'Quantum exceeds signed {total_bits}bits range: {quantum}')
-            quantum = 2.0 ** (total_bits - 1) - 1
-        elif quantum <= -2.0 ** (total_bits - 1):
+            quantum = 2 ** (total_bits - 1) - 1
+        elif quantum <= -2 ** (total_bits - 1):
             logging.info(f'Quantum exceeds signed {total_bits}bits range: {quantum}')
-            quantum = -2.0 ** (total_bits - 1) + 1
+            quantum = -2 ** (total_bits - 1) + 1
 
         twos_comple = self._twos_comp_shifted(quantum, total_bits)  # signed
         logging.info(f"Quantum: {quantum}")
