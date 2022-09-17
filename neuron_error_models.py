@@ -242,7 +242,9 @@ class single_bit_flip_func(core.FaultInjection):
 
     def single_bit_flip_signed_across_batch(self, module, input_val, output):
         corrupt_conv_set = self.corrupt_layer
-        range_max = self.get_conv_max(self.current_layer)
+        #range_max = self.get_conv_max(self.current_layer)
+        range_max = torch.max(output).item()
+        
         logging.info(f"Current layer: {self.current_layer}")
         logging.info(f"Range_max: {range_max}")
 
