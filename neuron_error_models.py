@@ -194,6 +194,7 @@ class single_bit_flip_func(core.FaultInjection):
         # binary representation
         bits = bin(twos_comple)[2:]
         logging.info(f"Bits: {bits}")
+        before_sign_extention = bits[:]
 
         # sign extend 0's
         temp = "0" * (total_bits - len(bits))
@@ -225,8 +226,10 @@ class single_bit_flip_func(core.FaultInjection):
 
         # convert to quantum
         if not bits_str_new.isdigit():
-            print(bits_str_new)
-            raise AssertionError
+            raise AssertionError(
+                f'\nOriginal Value: {orig_value}\nMax value: {max_value}\nQuantum: {quantum}\nTwos Couple: {twos_comple}\nBits: {before_sign_extention}\nSign extend bits: {bits}\nNew bits: {bits_str_new}'
+            )
+
         new_quantum = int(bits_str_new, 2)
         out = self._twos_comp(new_quantum, total_bits)
         logging.info(f"Out: {out}")
