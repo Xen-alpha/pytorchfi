@@ -136,7 +136,10 @@ class FaultInjection:
                 for i in subbase:
                     output_shape.append(i)
                 for i in subweight:
-                    weights_shape.append(i)
+                    try:
+                        weights_shape.append(i)
+                    except:
+                        weights_shape.append((0, 0, 0, 0))
 
         return (handles, output_shape, weights_shape)
 
