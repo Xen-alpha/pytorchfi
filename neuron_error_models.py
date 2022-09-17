@@ -187,6 +187,14 @@ class single_bit_flip_func(core.FaultInjection):
         logging.info(f"Original Value: {orig_value}")
 
         quantum = int((orig_value / max_value) * ((2.0 ** (total_bits - 1))))
+
+        if quantum >= 2.0 ** (total_bits - 1):
+            logging.info(f'Quantum exceeds signed {total_bits}bits range: {quantum}')
+            quantum = 2.0 ** (total_bits - 1) - 1
+        elif quantum <= -2.0 ** (total_bits - 1):
+            logging.info(f'Quantum exceeds signed {total_bits}bits range: {quantum}')
+            quantum = -2.0 ** (total_bits - 1) + 1
+
         twos_comple = self._twos_comp_shifted(quantum, total_bits)  # signed
         logging.info(f"Quantum: {quantum}")
         logging.info(f"Twos Couple: {twos_comple}")
@@ -241,7 +249,7 @@ class single_bit_flip_func(core.FaultInjection):
     def single_bit_flip_signed_across_batch(self, module, input_val, output):
         corrupt_conv_set = self.corrupt_layer
         #range_max = self.get_conv_max(self.current_layer)
-        range_max = torch.max(output).item()
+        range_max = torch.max(torch.abs(output)).item()
 
         logging.info(f"Current layer: {self.current_layer}")
         logging.info(f"Range_max: {range_max}")
