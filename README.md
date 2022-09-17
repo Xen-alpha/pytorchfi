@@ -22,6 +22,17 @@
   <a href="#license">License</a>
 </p>
 
+## What Changed After Fork?
+
+### Deleted pytorchfi folder and move contents to root directory
+I wanted to import this code in google colab using `!git clone https://github.com/WaiNaat/pytorchfi.git`
+
+### core.py
+Now adds falke layer weight data `(0, 0, 0, 0)` to `FaultInjection.weights_shape` if there is no weight in that layer.
+
+### neuron_error_models.py
+Now automatically calculates `max_value` needed for quantizaton by finding maximum value in given layer's output.
+
 ## Background
 
 PyTorchFI is a runtime perturbation tool for deep neural networks (DNNs), implemented for the popular PyTorch deep learning platform. PyTorchFI enables users to perform perturbation on weights or neurons of a DNN during runtime. It is extremely versatile for dependability and reliability research, with applications including resiliency analysis of classification networks, resiliency analysis of object detection networks, analysis of models robust to adversarial attacks, training resilient models, and for DNN interpertability.
