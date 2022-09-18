@@ -28,7 +28,8 @@
 I wanted to import this code in google colab using `!git clone https://github.com/WaiNaat/pytorchfi.git`
 
 ### core.py
-Now adds fake layer weight data `(0, 0, 0, 0)` to `FaultInjection.weights_shape` if there is no weight in that layer.
+Now adds fake layer weight data `['No weights']` to `FaultInjection.weights_shape` if there is no weight in that layer.    
+Asserts error if `torch.nn.Module` object with the same id is reused multiple times inside a model.
 
 ### neuron_error_models.py
 Now automatically calculates `max_value` needed for quantizaton by finding maximum value in given layer's output.   

@@ -65,6 +65,14 @@ class FaultInjection:
         for index, _handle in enumerate(handles):
             handles[index].remove()
 
+        if len(self.weights_size) != len(self.output_size):
+            errMsg = f'''Input Model Structure Error !!
+            There are {len(self.weights_size)} independent layers in the model, but the model uses {len(self.output_size)} layers in inference.
+            Please make sure that your model does not reuse layers with the same id.
+            Models reusing the same layer may cause fault injection of multiple layers in single inference.
+            '''
+            raise AssertionError(errMsg)
+
         logging.info("Input shape:")
         logging.info(dummy_shape[1:])
 
@@ -110,7 +118,7 @@ class FaultInjection:
                     try:
                         weights_shape.append(layer.weight.shape)
                     except:
-                        weights_shape.append((0, 0, 0, 0))
+                        weights_shape.append(['No weights'])
                         
                 else:
                     for i in layer_types:
@@ -125,7 +133,7 @@ class FaultInjection:
                             try:
                                 weights_shape.append(layer.weight.shape)
                             except:
-                                weights_shape.append((0, 0, 0, 0))
+                                weights_shape.append(['No weights'])
             # unpack node
             else:
                 subhandles, subbase, subweight = self._traverse_model_set_hooks(
@@ -136,10 +144,7 @@ class FaultInjection:
                 for i in subbase:
                     output_shape.append(i)
                 for i in subweight:
-                    try:
-                        weights_shape.append(i)
-                    except:
-                        weights_shape.append((0, 0, 0, 0))
+                    weights_shape.append(i)
 
         return (handles, output_shape, weights_shape)
 
