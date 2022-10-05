@@ -29,7 +29,9 @@ I wanted to import this code in google colab using `!git clone https://github.co
 
 ### core.py
 Now adds fake layer weight data `['No weights']` to `FaultInjection.weights_shape` if there is no weight in that layer.    
-Asserts error if `torch.nn.Module` object with the same id is reused multiple times inside a model.
+Asserts error if `torch.nn.Module` object with the same id is reused multiple times inside a model.   
+
+Now supports `'all'` mode in `declare_weight_fault_injection`. But you have to make sure that the layer you want to inject fault has weight attribute before using `declare_weight_fault_injection`.
 
 ### neuron_error_models.py
 Now automatically calculates `max_value` needed for quantizaton by finding maximum value in given layer's output.   
