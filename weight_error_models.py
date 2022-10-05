@@ -18,6 +18,8 @@ def random_weight_location(pfi, layer: int = -1):
     if dim > 1:
         dim1_shape = shape[1]
         dim1_rand = random.randint(0, dim1_shape - 1)
+    else:
+        dim1_rand = None
     if dim > 2:
         dim2_shape = shape[2]
         dim2_rand = random.randint(0, dim2_shape - 1)
