@@ -202,7 +202,7 @@ class FaultInjection:
 
         current_weight_layer = 0
         for layer in self.corrupted_model.modules():
-            if len(list(layer.children()) == 0):
+            if len(list(layer.children())) == 0:
                 if 'all' in self._inj_layer_types or isinstance(layer, tuple(self._inj_layer_types)):
                     inj_list = list(
                         filter(
